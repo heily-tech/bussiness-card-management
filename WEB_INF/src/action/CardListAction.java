@@ -13,7 +13,7 @@ import vo.UserInfo;
 
 	 public ActionForward execute(HttpServletRequest request,HttpServletResponse response) throws Exception{
 
-		ArrayList<CardBean> articleList=new ArrayList<CardBean>(); //전체 명함 목록 저장.
+		ArrayList<CardBean> cardList=new ArrayList<CardBean>(); //전체 명함 목록 저장.
 	  	int page=1;
 		  int limit=10;
 
@@ -37,7 +37,7 @@ import vo.UserInfo;
 		pageInfo.setPage(page);
 		pageInfo.setStartPage(startPage);
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("articleList", articleList);
+		request.setAttribute("cardList", cardList);
 		ActionForward forward= new ActionForward();
    		forward.setPath("/bcard/card_list.jsp");
    		return forward;

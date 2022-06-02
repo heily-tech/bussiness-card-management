@@ -5,8 +5,8 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
-	ArrayList<CardBean> articleList=(ArrayList<CardBean>)request.getAttribute("cardList");
-    vo.PageInfo pageInfo = (vo.PageInfo)request.getAttribute("pageInfo");
+	ArrayList<CardBean> cardList=(ArrayList<CardBean>)request.getAttribute("cardList");
+    PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int listCount=pageInfo.getListCount();
 	int nowPage=pageInfo.getPage();
 	int maxPage=pageInfo.getMaxPage();
@@ -66,12 +66,12 @@ h2 {
 	<section id="listForm">
 		<h2>명함 목록</h2><br>
     <table>
-      <% if(articleList != null && listCount > 0) { %>
-      <% for (int i = 0; i < articleList.size(); i++ ){ %>
+      <% if(cardList != null && listCount > 0) { %>
+      <% for (int i = 0; i < card.size(); i++ ){ %>
       <% if (i % 2 == 0) { %>
         <tr>
           <td>
-          <div align="center"><span style="font-size:20px"><b><%=cardList.get(i).getEMPNAME() %></b></span>
+          <div align="center"><span style="font-size:20px"><b><%=cardList.get(i).getEMP_NAME() %></b></span>
           <%=cardList.get(i).getPOS_NUM %> | <%=cardList.get(i).getDEP_NUM %></div>
           <hr>
           <div><span class="type">Mobile.</span><%=cardList.get(i).getMOBILE() %></div>

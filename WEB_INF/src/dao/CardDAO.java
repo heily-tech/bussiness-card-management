@@ -42,6 +42,7 @@ public class CardDAO {
 		//vo 객체에 담을 arraylist 초기화
 		ArrayList<CardBean> cardList = new ArrayList<CardBean>();
 		//vo 객체 초기화
+		CardBean card = new CardBean;
 		/*vo객체 선언 필요*/
 		card = null;
 

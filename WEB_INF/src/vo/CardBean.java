@@ -1,7 +1,5 @@
 package vo;
 
-import java.sql.Date;
-
 public class CardBean {
     private int EMP_NUM;
     private String EMP_PASSWD;

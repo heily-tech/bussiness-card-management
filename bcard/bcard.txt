@@ -1,0 +1,36 @@
+create database manageBC;
+
+use manageBC;
+
+create table bcard(
+emp_num int not null,                                    #사번
+emp_passwd varchar(30) not null,                  #비밀번호
+name_kor varchar(10) not null,                              #한글이름
+name_eng varchar(30) not null,                           #영문이름
+dep_num int unsigned check(dep_num < 6) not null,      #부서번호
+pos_num int unsigned check(pos_num < 7) not null,      #직급번호
+mobile int unique not null,                                 #폰 번호
+phone int not null,                                       #유선 번호
+fax int not null,                                             #팩스
+email varchar(45) unique not null,                           #이메일
+d_entry date not null,                                       #입사일
+d_resign date,                                          #퇴사일
+soc_num int unique not null,                     #주민번호
+primary key(emp_num)                                 #기본키
+);
+
+create table bcard (
+EMP_NUM int not null,
+EMP_PASSWD varchar(30) not null,
+NAME_KOR varchar(10) not null,
+NAME_ENG varchar(30) not null,
+DEP_NUM int unsigned check(DEP_NUM < 6) not null,
+POS_NUM int unsigned check(POS_NUM < 7) not null,  
+MOBILE int unique not null,
+PHONE int not null,
+EMAIL varchar(45) unique not null,
+D_ENTRY date not null,
+D_RESIGN date,
+SOC_NUM int unique not null,
+primary key(EMP_NUM)
+);

@@ -9,7 +9,7 @@ import vo.CardBean;
 import vo.PageInfo;
 import vo.UserInfo;
 
- public class BoardListAction implements Action {
+ public class CardListAction implements Action {
 
 	 public ActionForward execute(HttpServletRequest request,HttpServletResponse response) throws Exception{
 

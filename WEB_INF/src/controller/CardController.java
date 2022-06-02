@@ -1,3 +1,4 @@
+package controller;
 
 import java.io.IOException;
 
@@ -7,8 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
+import action.CardListAction;
+import vo.ActionForward;
+
+
 @WebServlet("*.bo")
-public class BoardController extends HttpServlet {
+public class CardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,7 +30,13 @@ public class BoardController extends HttpServlet {
 		int pos = uri.lastIndexOf('.');
 		String path = uri.substring(0, pos);
 
-		if (path.equals("")) {
+		if (path.equals("/cardList")) {
+			action = new CardListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		} else if (path.equals("")) {
 

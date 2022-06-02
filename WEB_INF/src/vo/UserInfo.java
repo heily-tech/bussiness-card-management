@@ -1,5 +1,6 @@
+package vo;
 
-public class UserInfo {
+class UserInfo {
 
 	private int emp_num;
 	private String emp_passwd;

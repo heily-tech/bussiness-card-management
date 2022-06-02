@@ -1,6 +1,6 @@
+package vo;
 
-
-public class ActionForward {
+class ActionForward {
 
 	private String path;
 	private boolean isRedirect;

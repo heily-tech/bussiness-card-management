@@ -12,9 +12,9 @@ public class CardWriteProService {
         Connection con = getConnection();
         CardDAO cardDAO = CardDAO.getInstance();
         cardDAO.setConnection(con);
-        int inserCount = cardDAO.insertCardList(list);
+        int insertCount = cardDAO.insertCardList(list);
 
-        if(inserCount > 0){
+        if(insertCount > 0){
             commit(con);
             writeSuccess = true;
         } else {

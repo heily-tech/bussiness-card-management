@@ -15,7 +15,7 @@ public class CardDeleteProAction implements Action {
 		int EMP_NUM = Integer.parseInt(request.getParameter("EMP_NUM"));
 		int DEP_NUM = Integer.parseInt(request.getParameter("DEP_NUM"));
 		int POS_NUM = Integer.parseInt(request.getParameter("POS_NUM"));
-		String nowPage = request.getParameter("page");
+		String nowPage = request.getParameter("page"); //글 삭제 후 원래 있던 페이지로 되돌아가는 변수
 		CardDeleteProService cardDeleteProService = new CardDeleteProService();
 		boolean isRightWriter = cardDeleteProService.isRightOfAccessCard(EMP_NUM, DEP_NUM, POS_NUM, request.getParameter("EMP_PASS"));
 

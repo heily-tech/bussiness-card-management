@@ -7,6 +7,7 @@ import dao.CardDAO;
 import vo.CardBean;
 
 public class CardListService {
+
     public int getListCount() throws Exception {
         int listCount = 0;
         Connection conn = getConnection();
@@ -15,13 +16,14 @@ public class CardListService {
         listCount = cardDAO.selectListCount();
         close(conn);
         return listCount;
+
     }
 
-    public ArrayList<CardBean> getCardList() throws Exception {
+    public ArrayList<CardBean> getCardList(int page, int limit) throws Exception {
         Connection conn = getConnection();
         CardDAO cardDAO = CardDAO.getInstance();
         cardDAO.setConnection(conn);
-        ArrayList<CardBean> cardList = cardDAO.selectCardList();
+        ArrayList<CardBean> cardList = cardDAO.selectCardList(page, limit);
         close(conn);
         return cardList;
     }

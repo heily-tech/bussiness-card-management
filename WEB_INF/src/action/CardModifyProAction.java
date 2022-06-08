@@ -29,9 +29,11 @@ public class CardModifyProAction implements Action {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date D_ENTRY = df.parse(request.getParameter("D_ENTRY"));
 		Date D_RESIGN = df.parse(request.getParameter("D_RESIGN"));
+		
 		CardBean article = new CardBean();
 		CardModifyProservice cardModifyProservice = new CardModifyProservice();
-		boolean isRightWriter = cardModifyProservice.isRightOfAccessCard(EMP_NUM, DEP_NUM, POS_NUM, request.getParameter("EMP_PASS")); //Service 부재
+		boolean isRightWriter = cardModifyProservice.isRightOfAccessCard(EMP_NUM, DEP_NUM, POS_NUM, request.getParameter("EMP_PASS"));
+		// 전송된 PW, 권한을 확인해서 글 수정 요청을 한 사용자가 정당한 사람인지 판단
 
 		if(!isRightWriter){
 			response.setContentType("text/html;charset=UTF-8");

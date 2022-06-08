@@ -11,7 +11,7 @@ public class CardModifyFormAction implements Action {
 		ActionForward forward = new ActionForward();
 		int emp_num = Integer.parseInt(request.getParameter("emp_num"));
 		CardDetailService cardDetailService = new CardDetailService();
-		CardBean article = cardDetailService.selectCard(emp_num);
+		CardBean article = cardDetailService.selectCard(emp_num); //수정 대상이 되는 사원 번호의 정보 반환
 		request.setAttribute("article", article);
 		forward.setPath("/webapp/card_modify.jsp");
 		return forward;

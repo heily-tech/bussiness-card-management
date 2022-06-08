@@ -13,7 +13,7 @@
     </script>
   	<style type="text/css">
   		@font-face {
-  			src: url("../fonts/LeferiBaseRegular.ttf");
+  			src: url("fonts/LeferiBaseRegular.ttf");
   			font-family: "Leferi";		}
   		* {  			font-family: "Leferi";  		}
       #modifyForm {  			margin: auto;			width: 600px;			height : 400px;		}

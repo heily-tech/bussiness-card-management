@@ -7,7 +7,7 @@
 	<title>명함 관리 시스템 : 명함 입력</title>
 	<style type="text/css">
 		@font-face {
-			src: url("../fonts/LeferiBaseRegular.ttf");
+			src: url("fonts/LeferiBaseRegular.ttf");
 			font-family: "Leferi";		}
 		* {
 			font-family: "Leferi";

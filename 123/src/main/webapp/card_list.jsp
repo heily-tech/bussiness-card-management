@@ -9,7 +9,7 @@
 <title>명함 관리 시스템 : 명함 목록</title>
 <style type="text/css">
   @font-face {
-    src: url("../fonts/LeferiBaseRegular.ttf");
+    src: url("fonts/LeferiBaseRegular.ttf");
     font-family: "Leferi";
   }
 #listForm {
@@ -67,7 +67,7 @@ a {
 		        <tr>
 		    </c:if>
 		          	<td>
-			          <div align="center"><span style="font-size:20px">${l.getNameKor()}</span>
+			          <div align="center"><span style="font-size:23px"><b>${l.getNameKor()}</b></span>
 			          	<span>${l.getPosNum()} | ${l.getDepNum() }</span></div>
 			          <div align="right"><a href="/123/cardDetail.bo?emp=${l.getEmpNum()}">상세보기</a></div><hr>
 			          <div><span class="type">Mobile.</span> ${l.getMobile()}</div>

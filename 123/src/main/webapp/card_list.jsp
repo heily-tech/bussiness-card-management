@@ -66,10 +66,9 @@ a {
 		    <c:if test="${idx%2==0}">
 		        <tr>
 		    </c:if>
-		          	<td>
+		          	<td onClick="location.href='/123/cardDetail.bo?emp=${l.getEmpNum()}'">
 			          <div align="center"><span style="font-size:23px"><b>${l.getNameKor()}</b></span>
-			          	<span>${l.getPosNum()} | ${l.getDepNum() }</span></div>
-			          <div align="right"><a href="/123/cardDetail.bo?emp=${l.getEmpNum()}">상세보기</a></div><hr>
+			          	<span>${l.getPosNum()} | ${l.getDepNum() }</span></div><hr>
 			          <div><span class="type">Mobile.</span> ${l.getMobile()}</div>
 			          <div><span class="type">Phone.</span> ${l.getPhone()}</div>
 			          <div><span class="type">Fax.</span> ${l.getFax()}</div>

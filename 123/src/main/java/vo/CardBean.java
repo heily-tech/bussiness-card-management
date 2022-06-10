@@ -2,14 +2,15 @@ package vo;
 
 import java.util.Date;
 
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CardBean {
 	
 	private int empNum;
@@ -22,10 +23,8 @@ public class CardBean {
 	private String phone;
 	private String fax;
 	private String email;
-	private Date dEntry;
-	private Date dResign;
+	private String dEntry;
+	private String dResign;
 	private String socNum;
-
-	
 	
 }

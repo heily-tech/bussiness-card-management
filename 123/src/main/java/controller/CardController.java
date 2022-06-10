@@ -15,14 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.CardDAO;
+import service.CardService;
 import vo.CardBean;
+import vo.Page;
 
 
 @WebServlet("*.bo")
 public class CardController extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
+    private final CardService service = new CardService();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         hole(request, response);
     }
 
@@ -44,36 +48,38 @@ public class CardController extends HttpServlet {
     	request.getParameterNames().asIterator().forEachRemaining(name -> paramMap.put(name, request.getParameter(name)));
         
         if (path.equals("cardList")) {
-            list = dao.getList(0, 10);
+            list = service.getList(paramMap);
+            int page = Integer.parseInt(paramMap.get("page"));
+            int size = service.getSize(page);
+            List<Page> max = service.getMaxSize();
             
+            request.setAttribute("page", page);
+            request.setAttribute("max", max);
+            request.setAttribute("size", size);
             request.setAttribute("list", list);
             RequestDispatcher rd = request.getRequestDispatcher("card_list.jsp");
             rd.forward(request, response);
 
         } else if (path.equals("cardWrite")) {
-        	dao.save(paramMap);
-        	response.sendRedirect("/123");
+        	service.save(paramMap);
+        	response.sendRedirect("/123/cardList.bo?page=1");
         } else if (path.equals("cardDelete")) {
-        	dao.delete(paramMap);
+        	service.delete(paramMap);
         	response.sendRedirect("/123");
         } else if (path.equals("cardModify")) {
-        	dao.modify(paramMap);
+        	service.modify(paramMap);
         	response.sendRedirect("/123");
         } else if (path.equals("cardDetail")) {
-        	CardBean card = dao.detail(paramMap);
+        	CardBean card = service.detail(paramMap);
         	
         	request.setAttribute("card", card);
             RequestDispatcher rd = request.getRequestDispatcher("card_detail.jsp");
             rd.forward(request, response);
         } else if (path.equals("cardModifyView")) {
-        	CardBean card = dao.detail(paramMap);        	
+        	CardBean card = service.detail(paramMap);
+        	
         	request.setAttribute("card", card);
             RequestDispatcher rd = request.getRequestDispatcher("card_modify.jsp");
-            rd.forward(request, response);
-        } else if (path.equals("cardDeleteView")) {
-        	CardBean card = dao.detail(paramMap);
-        	request.setAttribute("card", card);
-            RequestDispatcher rd = request.getRequestDispatcher("card_delete.jsp");
             rd.forward(request, response);
         }
         

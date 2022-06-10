@@ -8,7 +8,7 @@
 </head>
 <body>
 <div style="margin: 30px;">
-	<a href="/123/cardList.bo">회원목록</a><br>
+	<a href="/123/cardList.bo?page=1">회원목록</a><br>
 	<a href="/123/card_write.jsp">회원추가</a><br>
 	<a href="/123/card_delete.jsp">회원삭제</a><br>
 </div>

@@ -83,9 +83,23 @@ a {
 	   </c:if>
   	</section>
     <section id="pageList">
-        <a href="cardList.bo?page=">이전 |</a>&nbsp;
-      	<a href="cardList.bo?page="></a>&nbsp;
-	   	<a href="cardList.bo?page=">| 다음</a><br>
+        <c:if test="${page==1}">
+	        <a>이전 |</a>&nbsp;
+        </c:if>
+        <c:if test="${page!=1}">
+	        <a href="cardList.bo?page=${page - 1}">이전 |</a>&nbsp;
+        </c:if>
+        
+        <c:forEach var="m" items="${max}">
+        	<a href="cardList.bo?page=${m.getPage()}">${m.getPage()}</a>&nbsp;|
+        </c:forEach>
+        
+        <c:if test="${size!=7}">
+      		<a> 다음</a>
+		</c:if>
+		<c:if test="${size==7}">
+      		<a href="cardList.bo?page=${page + 1}"> 다음</a>
+		</c:if><br>
 	   	<a href="/123/card_write.jsp">명함 작성</a>
     </section>
   </body>

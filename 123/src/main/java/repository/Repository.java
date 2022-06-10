@@ -20,4 +20,9 @@ public interface Repository {
 	public int modify(CardBean card);
 
 	public CardBean detail(int num);
+	
+	//2022-06-10 수정 권한 확인 메소드_고동욱, 사공인
+	public boolean rightOfAccess(int num, String passwd);
+	
+	public boolean loginSuccess(int emp_num, String passwd);
 }

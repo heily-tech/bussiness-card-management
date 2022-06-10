@@ -29,7 +29,7 @@ public class CardDAO {
 	}
 
 	public List<CardBean> getList(int page) {
-		page--;
+		page--; //0부터 페이지 시작
 		con = getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -48,8 +48,8 @@ public class CardDAO {
 				card.setEmpNum(rs.getInt("EMP_NUM"));
 				card.setNameKor(rs.getString("NAME_KOR"));
 				card.setSocNum(rs.getString("SOC_NUM"));
-				card.setDepNum(rs.getInt("DEP_NUM"));
-				card.setPosNum(rs.getInt("POS_NUM"));
+				card.setDepNum(rs.getString("DEP_NUM")); // int에서 String 변환
+				card.setPosNum(rs.getString("POS_NUM")); // int에서 String 변환
 				card.setMobile(rs.getString("MOBILE"));
 				card.setPhone(rs.getString("PHONE"));
 				card.setFax(rs.getString("FAX"));
@@ -59,7 +59,7 @@ public class CardDAO {
 				list.add(card);
 			}
 		} catch (Exception e) {
-			System.out.println("getCardList ���� : " + e);
+			System.out.println("getCardList 에러 : " + e);
 		} finally {
 			if (rs != null)
 				close(rs);
@@ -84,8 +84,8 @@ public class CardDAO {
 			pstmt.setString(2, c.getEmpPasswd());
 			pstmt.setString(3, c.getNameKor());
 			pstmt.setString(4, c.getNameEng());
-			pstmt.setInt(5, c.getDepNum());
-			pstmt.setInt(6, c.getPosNum());
+			pstmt.setString(5, c.getDepNum());//int에서 String으로 변환
+			pstmt.setString(6, c.getPosNum());//int에서 String으로 변환
 			pstmt.setString(7, c.getMobile());
 			pstmt.setString(8, c.getPhone());
 			pstmt.setString(9, c.getFax());
@@ -98,7 +98,7 @@ public class CardDAO {
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("insertCardList ���� : " + e);
+			System.out.println("insertCardList 에러 : " + e);
 		} finally {
 			if (pstmt != null)
 				close(pstmt);
@@ -119,7 +119,7 @@ public class CardDAO {
 			pstmt.setInt(1, num);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
-			System.out.println("CardDelete ���� : " + e);
+			System.out.println("CardDelete  : " + e);
 		} finally {
 			if (pstmt != null)
 				close(pstmt);
@@ -142,8 +142,8 @@ public class CardDAO {
 			pstmt.setString(2, c.getNameEng());
 			pstmt.setString(3, c.getSocNum());
 			pstmt.setString(4, c.getEmpPasswd());
-			pstmt.setInt(5, c.getDepNum());
-			pstmt.setInt(6, c.getPosNum());
+			pstmt.setString(5, c.getDepNum());//int에서 String으로 변환
+			pstmt.setString(6, c.getPosNum());//int에서 String으로 변환
 			pstmt.setString(7, c.getMobile());
 			pstmt.setString(8, c.getPhone());
 			pstmt.setString(9, c.getFax());
@@ -151,13 +151,13 @@ public class CardDAO {
 			pstmt.setString(11, c.getDEntry());
 
 			temp = c.getDResign();
-			pstmt.setString(12, temp.equals("") ? null : temp);
+			pstmt.setString(12, temp.equals("") ? null : temp); //퇴사일
 			pstmt.setInt(13, c.getEmpNum());
 
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("insertCardList ���� : " + e);
+			System.out.println("insertCardList 에러 : " + e);
 		} finally {
 			if (pstmt != null)
 				close(pstmt);
@@ -186,8 +186,8 @@ public class CardDAO {
 				card.setNameKor(rs.getString("NAME_KOR"));
 				card.setNameEng(rs.getString("NAME_ENG"));
 				card.setSocNum(rs.getString("SOC_NUM"));
-				card.setDepNum(rs.getInt("DEP_NUM"));
-				card.setPosNum(rs.getInt("POS_NUM"));
+				card.setDepNum(rs.getString("DEP_NUM"));//int에서 String으로 변환
+				card.setPosNum(rs.getString("POS_NUM"));//int에서 String으로 변환
 				card.setMobile(rs.getString("MOBILE"));
 				card.setPhone(rs.getString("PHONE"));
 				card.setFax(rs.getString("FAX"));
@@ -198,7 +198,7 @@ public class CardDAO {
 
 			return card;
 		} catch (Exception e) {
-			System.out.println("CardDelete ���� : " + e);
+			System.out.println("CardDelete  : " + e);
 		} finally {
 			if (rs != null)
 				close(rs);
@@ -271,5 +271,65 @@ public class CardDAO {
 		
 		return -1;
 	}
+	//2022-06-10 권한 확인 메소드_고동욱, 사공인
+	public boolean rightOfAccess(int emp_num, String passwd) {
+		con = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from bcard where emp_num=?";
+		boolean hasPower = false;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, emp_num);
+			rs = pstmt.executeQuery();
 
+			if (rs.next()) {
+				if(rs.getString("emp_passwd").equals(passwd)) {
+					//숫자에서 문자열 비교로 바꿈
+					if(rs.getString("pos_num").equals("사장") || (rs.getString("pos_num").equals("부장") && rs.getString("dep_num").equals("인사과"))) {
+						hasPower = true;
+					}
+				}	
+			}
+		} catch (Exception e) {
+			System.out.println("CardAccess 에러 : " + e);
+		} finally {
+			if (rs != null)
+				close(rs);
+			if (pstmt != null)
+				close(pstmt);
+			if (con != null)
+				close(con);
+		}
+		return hasPower;
+	}
+	//2022-06-10 로그인 검증 메소드_고동욱, 사공인
+	public boolean selectLogin(int emp_num, String passwd) { //로그인
+		con = getConnection();
+		boolean loginSuccess = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from bcard where emp_num=? and emp_passwd = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, emp_num);
+			pstmt.setString(2, passwd);
+			rs = pstmt.executeQuery();
+			
+			if(rs != null) {
+				loginSuccess =true;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Login 에러 : " + e);
+		} finally {
+			if (pstmt != null)
+				close(pstmt);
+			if (con != null)
+				close(con);
+		}
+
+		return loginSuccess;
+	}
 }

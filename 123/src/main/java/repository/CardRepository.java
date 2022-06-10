@@ -10,6 +10,18 @@ import vo.CardBean;
 public class CardRepository implements Repository {
 
 	private final CardDAO dao = CardDAO.getInstance();
+	
+	//2022-06-10 권한 확인 메소드_고동욱, 사공인
+	@Override
+	public boolean rightOfAccess(int num, String passwd) {
+		return dao.rightOfAccess(num, passwd);
+	}
+	
+	//2022-06-10 로그인 메소드_고동욱, 사공인
+	@Override
+	public boolean loginSuccess(int emp_num, String passwd) {
+		return dao.selectLogin(emp_num, passwd);
+	}
 
 	@Override
 	public List<CardBean> getList(int page) {

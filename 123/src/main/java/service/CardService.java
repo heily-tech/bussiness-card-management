@@ -36,8 +36,8 @@ public class CardService {
 				.empPasswd(param.get("emp_passwd"))
 				.nameKor(param.get("name_kor"))
 				.nameEng(param.get("name_eng"))
-				.depNum(Integer.parseInt(param.get("dep_num")))
-				.posNum(Integer.parseInt(param.get("pos_num")))
+				.depNum(param.get("dep_num"))
+				.posNum(param.get("pos_num"))
 				.mobile(param.get("mobile"))
 				.phone(param.get("phone"))
 				.fax(param.get("tel"))
@@ -49,9 +49,12 @@ public class CardService {
 		
 		return repository.save(card);
 	}
-
+	//2022-06-10 삭제 권한 확인 메소드_사공인
 	public int delete(Map<String, String> param) {
-		return repository.delete(Integer.parseInt(param.get("emp_num")));
+		if(repository.rightOfAccess(Integer.parseInt(param.get("emp_num")), param.get("emp_passwd"))) {
+			return repository.delete(Integer.parseInt(param.get("emp_num")));
+		}
+		return -1;
 	}
 
 	public int modify(Map<String, String> param) {
@@ -60,8 +63,8 @@ public class CardService {
 				.empPasswd(param.get("emp_passwd"))
 				.nameKor(param.get("name_kor"))
 				.nameEng(param.get("name_eng"))
-				.depNum(Integer.parseInt(param.get("dep_num")))
-				.posNum(Integer.parseInt(param.get("pos_num")))
+				.depNum(param.get("dep_num"))
+				.posNum(param.get("pos_num"))
 				.mobile(param.get("mobile"))
 				.phone(param.get("phone"))
 				.fax(param.get("tel"))
@@ -70,11 +73,23 @@ public class CardService {
 				.dResign(param.get("e_resign"))
 				.socNum(param.get("soc_num"))
 				.build();
-		
-		return repository.modify(card);
+				
+		//2022-06-10 수정 권한 확인 메소드_고동욱, 사공인
+		if(repository.rightOfAccess(Integer.parseInt(param.get("emp_num")), param.get("emp_passwd"))) {
+			return repository.modify(card);
+		}
+		return -1;
 	}
 
 	public CardBean detail(Map<String, String> param) {
 		return repository.detail(Integer.parseInt(param.get("emp")));
+	}
+	
+	public boolean login(Map<String, String> param) {
+		boolean loginSuccess = false;
+		if(repository.loginSuccess(Integer.parseInt(param.get("emp_num")), param.get("emp_passwd"))) {
+			loginSuccess = true;
+		}
+		return loginSuccess;
 	}
 }

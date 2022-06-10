@@ -53,9 +53,22 @@
 					</tr>
 					<tr>
 						<td class="td_left"><label for="dep_num">부서명</label></td>
-						<td class="td_right"><input type="text" name="dep_num" id="dep_num" required></td>
+						<td class="td_right"><select>
+							<option value="인사">인사</option>
+							<option value="회계">회계</option>
+							<option value="영업">영업</option>
+							<option value="기획">기획</option>
+							<option value="개발">개발</option>
+						</select></td>
 						<td class="td_left"><label for="pos_num">직위</label></td>
-						<td class="td_right"><input type="text" name="pos_num" id="pos_num" required></td>
+						<td class="td_right"><select>
+							<option value="인턴">인턴</option>
+							<option value="직원">직원</option>
+							<option value="대리">대리</option>
+							<option value="과장">과장</option>
+							<option value="부장">부장</option>
+							<option value="사장">사장</option>
+						</select></td>
 					</tr>
 					<tr>
 						<td class="td_left"><label for="mobile">모바일</label></td>
